@@ -12,6 +12,14 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { QuestionCard } from '@/components/questions/question-card';
 
 export default function QuestionsPage() {
+    return (
+        <React.Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>}>
+            <QuestionsContent />
+        </React.Suspense>
+    );
+}
+
+function QuestionsContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const personaId = searchParams.get('persona');

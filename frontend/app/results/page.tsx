@@ -17,6 +17,14 @@ import { useToast } from '@/hooks/use-toast';
 type TabValue = 'list' | 'journey' | 'graph' | 'optimizer';
 
 export default function ResultsPage() {
+    return (
+        <React.Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>}>
+            <ResultsContent />
+        </React.Suspense>
+    );
+}
+
+function ResultsContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { toast } = useToast();

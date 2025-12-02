@@ -17,6 +17,14 @@ import { ApplyTab } from '@/components/scheme-detail/apply-tab';
 type TabValue = 'about' | 'why' | 'documents' | 'apply';
 
 export default function SchemeDetailPage() {
+    return (
+        <React.Suspense fallback={<div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>}>
+            <SchemeDetailContent />
+        </React.Suspense>
+    );
+}
+
+function SchemeDetailContent() {
     const router = useRouter();
     const params = useParams();
     const searchParams = useSearchParams();
