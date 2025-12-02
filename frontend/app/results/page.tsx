@@ -49,7 +49,13 @@ export default function ResultsPage() {
     };
 
     const handleShare = async () => {
-        const totalValue = eligibleSchemes.reduce((sum, s) => sum + (s.annual_value || 0), 0);
+        const totalValue = eligibleSchemes.reduce((sum, s) => {
+            if (!s.benefit_value) return sum;
+            if (s.benefit_frequency === 'annual') return sum + s.benefit_value;
+            if (s.benefit_frequency === 'monthly') return sum + (s.benefit_value * 12);
+            if (s.benefit_frequency === 'quarterly') return sum + (s.benefit_value * 4);
+            return sum + s.benefit_value; // one_time
+        }, 0);
         const shareText = language === 'hi'
             ? `मैंने YojanaHub का उपयोग करके ${eligibleSchemes.length} सरकारी योजनाओं की खोज की, जो ₹${totalValue.toLocaleString('en-IN')}/वर्ष के लायक हैं!`
             : `I discovered ${eligibleSchemes.length} government schemes worth ₹${totalValue.toLocaleString('en-IN')}/year using YojanaHub!`;
