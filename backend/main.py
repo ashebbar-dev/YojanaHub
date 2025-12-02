@@ -1,3 +1,5 @@
+import os
+import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,14 +14,26 @@ app = FastAPI(
 )
 
 # CORS middleware configuration
+origins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
+]
+
+# Add origins from environment variable
+env_origins = os.getenv("CORS_ORIGINS")
+if env_origins:
+    try:
+        # Try parsing as JSON list
+        origins.extend(json.loads(env_origins))
+    except json.JSONDecodeError:
+        # Fallback: treat as comma-separated string
+        origins.extend([o.strip() for o in env_origins.split(",")])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-    ],  # Next.js frontend (multiple ports for dev)
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
