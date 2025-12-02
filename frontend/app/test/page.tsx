@@ -86,7 +86,7 @@ export default function TestPage() {
       addOutput(`✅ Success! Found ${schemes.length} eligible schemes`);
 
       schemes.slice(0, 3).forEach((s: Scheme) => {
-        addOutput(`  - ${s.name} (₹${s.annual_value?.toLocaleString()}) - Confidence: ${(s.confidence || 0) * 100}%`);
+        addOutput(`  - ${s.name} (₹${s.benefit_value?.toLocaleString()}) - Confidence: ${(s.confidence || 0) * 100}%`);
       });
     } catch (error: any) {
       addOutput(`❌ Error: ${error.message}`);
