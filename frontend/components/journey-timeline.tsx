@@ -22,6 +22,15 @@ export function JourneyTimeline() {
     const { language, eligibleSchemes } = useAppStore();
     const [expandedPhase, setExpandedPhase] = React.useState<number>(0);
 
+    // Helper to calculate annual value
+    const getAnnualValue = (scheme: Scheme) => {
+        if (!scheme.benefit_value) return 0;
+        if (scheme.benefit_frequency === 'annual') return scheme.benefit_value;
+        if (scheme.benefit_frequency === 'monthly') return scheme.benefit_value * 12;
+        if (scheme.benefit_frequency === 'quarterly') return scheme.benefit_value * 4;
+        return scheme.benefit_value; // one_time
+    };
+
     // Categorize schemes into journey phases
     const phases: JourneyPhase[] = React.useMemo(() => {
         // For demo purposes, we'll distribute schemes across phases
@@ -46,7 +55,7 @@ export function JourneyTimeline() {
                 labelHi: 'तत्काल',
                 years: 'Now',
                 schemes: immediate,
-                totalValue: immediate.reduce((sum, s) => sum + (s.annual_value || 0), 0),
+                totalValue: immediate.reduce((sum, s) => sum + getAnnualValue(s), 0),
                 events: ['Apply for schemes', 'Gather documents']
             },
             {
@@ -54,7 +63,7 @@ export function JourneyTimeline() {
                 labelHi: 'अल्पकालिक',
                 years: '1-2 years',
                 schemes: shortTerm,
-                totalValue: shortTerm.reduce((sum, s) => sum + (s.annual_value || 0), 0),
+                totalValue: shortTerm.reduce((sum, s) => sum + getAnnualValue(s), 0),
                 events: []
             },
             {
@@ -62,7 +71,7 @@ export function JourneyTimeline() {
                 labelHi: 'मध्यम अवधि',
                 years: '3-5 years',
                 schemes: mediumTerm,
-                totalValue: mediumTerm.reduce((sum, s) => sum + (s.annual_value || 0), 0),
+                totalValue: mediumTerm.reduce((sum, s) => sum + getAnnualValue(s), 0),
                 events: []
             },
             {
@@ -70,7 +79,7 @@ export function JourneyTimeline() {
                 labelHi: 'दीर्घकालिक',
                 years: '5+ years',
                 schemes: longTerm,
-                totalValue: longTerm.reduce((sum, s) => sum + (s.annual_value || 0), 0),
+                totalValue: longTerm.reduce((sum, s) => sum + getAnnualValue(s), 0),
                 events: []
             }
         ];

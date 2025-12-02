@@ -12,6 +12,15 @@ import { cn } from '@/lib/utils';
 export function SchemeOptimizer() {
     const { language, eligibleSchemes } = useAppStore();
 
+    // Helper to calculate annual value
+    const getAnnualValue = (scheme: Scheme) => {
+        if (!scheme.benefit_value) return 0;
+        if (scheme.benefit_frequency === 'annual') return scheme.benefit_value;
+        if (scheme.benefit_frequency === 'monthly') return scheme.benefit_value * 12;
+        if (scheme.benefit_frequency === 'quarterly') return scheme.benefit_value * 4;
+        return scheme.benefit_value; // one_time
+    };
+
     // Detect conflicts (schemes with conflicts array)
     const conflictPairs = React.useMemo(() => {
         const pairs: Array<{
@@ -32,7 +41,7 @@ export function SchemeOptimizer() {
                         );
                         if (!exists) {
                             // Select the one with higher value
-                            const selected = (scheme.annual_value || 0) >= (conflictingScheme.annual_value || 0)
+                            const selected = getAnnualValue(scheme) >= getAnnualValue(conflictingScheme)
                                 ? scheme
                                 : conflictingScheme;
                             const excluded = selected === scheme ? conflictingScheme : scheme;
@@ -86,7 +95,7 @@ export function SchemeOptimizer() {
         ].filter(layer => layer.schemes.length > 0);
     }, [selectedSchemes]);
 
-    const totalOptimizedValue = selectedSchemes.reduce((sum, s) => sum + (s.annual_value || 0), 0);
+    const totalOptimizedValue = selectedSchemes.reduce((sum, s) => sum + getAnnualValue(s), 0);
 
     return (
         <div className="space-y-8">
@@ -140,7 +149,7 @@ export function SchemeOptimizer() {
                                             <p className="font-semibold text-slate-900">{pair.selected.name}</p>
                                             <div className="flex items-center gap-2 text-green-700 font-medium mt-1">
                                                 <IndianRupee className="w-4 h-4" />
-                                                <span>₹{(pair.selected.annual_value || 0).toLocaleString('en-IN')}</span>
+                                                <span>₹{getAnnualValue(pair.selected).toLocaleString('en-IN')}</span>
                                             </div>
                                             <Badge variant="default" className="mt-2 text-xs">
                                                 {language === 'hi' ? 'चयनित' : 'Selected'}
@@ -155,7 +164,7 @@ export function SchemeOptimizer() {
                                             <p className="font-semibold text-slate-700">{pair.excluded.name}</p>
                                             <div className="flex items-center gap-2 text-slate-600 font-medium mt-1">
                                                 <IndianRupee className="w-4 h-4" />
-                                                <span>₹{(pair.excluded.annual_value || 0).toLocaleString('en-IN')}</span>
+                                                <span>₹{getAnnualValue(pair.excluded).toLocaleString('en-IN')}</span>
                                             </div>
                                             <Badge variant="outline" className="mt-2 text-xs">
                                                 {language === 'hi' ? 'बहिष्कृत' : 'Excluded'}
@@ -186,7 +195,6 @@ export function SchemeOptimizer() {
                 <CardContent>
                     <div className="space-y-4">
                         {benefitStack.map((layer, idx) => {
-                            const layerValue = layer.schemes.reduce((sum, s) => sum + (s.annual_value || 0), 0);
                             const colorClasses = {
                                 blue: 'bg-blue-50 border-blue-200 text-blue-700',
                                 green: 'bg-green-50 border-green-200 text-green-700',
@@ -202,7 +210,7 @@ export function SchemeOptimizer() {
                                         </h4>
                                         <div className="flex items-center gap-2 font-bold">
                                             <IndianRupee className="w-4 h-4" />
-                                            <span>₹{(layerValue / 1000).toFixed(0)}k</span>
+                                            <span>₹{(layer.schemes.reduce((sum, s) => sum + getAnnualValue(s), 0) / 1000).toFixed(0)}k</span>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
@@ -210,7 +218,7 @@ export function SchemeOptimizer() {
                                             <div key={scheme.id} className="flex items-center justify-between text-sm">
                                                 <span>{scheme.name}</span>
                                                 <span className="text-slate-600">
-                                                    ₹{((scheme.annual_value || 0) / 1000).toFixed(0)}k
+                                                    ₹{(getAnnualValue(scheme) / 1000).toFixed(0)}k
                                                 </span>
                                             </div>
                                         ))}
@@ -243,7 +251,7 @@ export function SchemeOptimizer() {
                                     </div>
                                     <div className="flex items-center gap-2 text-slate-600">
                                         <IndianRupee className="w-4 h-4" />
-                                        <span>₹{(scheme.annual_value || 0).toLocaleString('en-IN')}</span>
+                                        <span>₹{getAnnualValue(scheme).toLocaleString('en-IN')}</span>
                                     </div>
                                 </div>
                             ))}

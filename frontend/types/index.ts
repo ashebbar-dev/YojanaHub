@@ -43,7 +43,8 @@ export interface Scheme {
   state?: string;
   category?: string;
   benefit_type: string;
-  annual_value?: number;
+  benefit_value?: number;
+  benefit_frequency?: string;
   confidence?: number;
   matched_conditions?: string[];
   blocking_conditions?: string[];

@@ -13,7 +13,13 @@ interface SummaryCardProps {
 export function SummaryCard({ onShare }: SummaryCardProps) {
     const { language, eligibleSchemes } = useAppStore();
 
-    const totalAnnualValue = eligibleSchemes.reduce((sum, scheme) => sum + (scheme.annual_value || 0), 0);
+    const totalAnnualValue = eligibleSchemes.reduce((sum, scheme) => {
+        if (!scheme.benefit_value) return sum;
+        if (scheme.benefit_frequency === 'annual') return sum + scheme.benefit_value;
+        if (scheme.benefit_frequency === 'monthly') return sum + (scheme.benefit_value * 12);
+        if (scheme.benefit_frequency === 'quarterly') return sum + (scheme.benefit_value * 4);
+        return sum + scheme.benefit_value; // one_time
+    }, 0);
     const estimatedYears = 20; // Average benefit duration
     const lifetimeValue = totalAnnualValue * estimatedYears;
 

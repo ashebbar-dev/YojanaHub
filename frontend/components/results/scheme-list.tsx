@@ -61,7 +61,15 @@ export function SchemeList({ schemes, onSchemeClick }: SchemeListProps) {
         if (sortBy === 'relevance') {
             sorted.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
         } else if (sortBy === 'value') {
-            sorted.sort((a, b) => (b.annual_value || 0) - (a.annual_value || 0));
+            // Calculate annual value for comparison
+            const getAnnualValue = (scheme: Scheme) => {
+                if (!scheme.benefit_value) return 0;
+                if (scheme.benefit_frequency === 'annual') return scheme.benefit_value;
+                if (scheme.benefit_frequency === 'monthly') return scheme.benefit_value * 12;
+                if (scheme.benefit_frequency === 'quarterly') return scheme.benefit_value * 4;
+                return scheme.benefit_value; // one_time
+            };
+            sorted.sort((a, b) => getAnnualValue(b) - getAnnualValue(a));
         } else if (sortBy === 'name') {
             sorted.sort((a, b) => a.name.localeCompare(b.name));
         }

@@ -90,12 +90,15 @@ export function SchemeCard({ scheme, onClick, highlightConflict }: SchemeCardPro
                 </div>
 
                 {/* Benefit Value */}
-                {scheme.annual_value && (
+                {scheme.benefit_value && (
                     <div className="flex items-center gap-2 text-lg font-semibold text-green-700">
                         <IndianRupee className="w-5 h-5" />
-                        <span>{scheme.annual_value.toLocaleString('en-IN')}</span>
+                        <span>{scheme.benefit_value.toLocaleString('en-IN')}</span>
                         <span className="text-sm font-normal text-slate-500">
-                            {language === 'hi' ? 'प्रति वर्ष' : 'per year'}
+                            {scheme.benefit_frequency === 'annual' && (language === 'hi' ? 'प्रति वर्ष' : 'per year')}
+                            {scheme.benefit_frequency === 'monthly' && (language === 'hi' ? 'प्रति माह' : 'per month')}
+                            {scheme.benefit_frequency === 'quarterly' && (language === 'hi' ? 'प्रति तिमाही' : 'per quarter')}
+                            {scheme.benefit_frequency === 'one_time' && (language === 'hi' ? 'एकमुश्त' : 'one-time')}
                         </span>
                     </div>
                 )}
