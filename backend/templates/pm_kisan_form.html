@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM-KISAN Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #22c55e;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #15803d;
+            margin: 0;
+        }
+        .header p {
+            color: #64748b;
+            margin: 5px 0;
+        }
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .section h2 {
+            color: #1e40af;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .field {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 4px;
+        }
+        .field label {
+            font-weight: bold;
+            color: #334155;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .field .value {
+            color: #0f172a;
+            font-size: 16px;
+            min-height: 25px;
+            border-bottom: 1px solid #cbd5e1;
+            padding: 5px 0;
+        }
+        .signature-box {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed #94a3b8;
+            border-radius: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+        .instructions {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #92400e;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 20px;
+            }
+            .instructions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PM-KISAN SAMMAN NIDHI</h1>
+        <p>पीएम किसान सम्मान निधि</p>
+        <p>Application Form for Farmer Registration</p>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 Instructions</h3>
+        <ul>
+            <li>Print this form and fill in any missing details</li>
+            <li>Attach required documents (Aadhaar, Land Records, Bank Passbook)</li>
+            <li>Sign in the designated space</li>
+            <li>Submit at nearest CSC or Agriculture Office</li>
+        </ul>
+    </div>
+
+   <div class="section">
+        <h2>Personal Information</h2>
+        <div class="field">
+            <label>Full Name:</label>
+            <div class="value">{{name}}</div>
+        </div>
+        <div class="field">
+            <label>Age:</label>
+            <div class="value">{{age}}</div>
+        </div>
+        <div class="field">
+            <label>Gender:</label>
+            <div class="value">{{gender}}</div>
+        </div>
+        <div class="field">
+            <label>Aadhaar Number:</label>
+            <div class="value">{{aadhaar}}</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Address Details</h2>
+        <div class="field">
+            <label>State:</label>
+            <div class="value">{{state}}</div>
+        </div>
+        <div class="field">
+            <label>District:</label>
+            <div class="value">{{district}}</div>
+        </div>
+        <div class="field">
+            <label>Block/Tehsil:</label>
+            <div class="value">{{block}}</div>
+        </div>
+        <div class="field">
+            <label>Village:</label>
+            <div class="value">{{village}}</div>
+        </div>
+        <div class="field">
+            <label>PIN Code:</label>
+            <div class="value">{{pincode}}</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Land Details</h2>
+        <div class="field">
+            <label>Land Holding (in Hectares):</label>
+            <div class="value">_____________________</div>
+        </div>
+        <div class="field">
+            <label>Khasra/Survey Number:</label>
+            <div class="value">_____________________</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Bank Details</h2>
+        <div class="field">
+            <label>Bank Name:</label>
+            <div class="value">{{bank_name}}</div>
+        </div>
+        <div class="field">
+            <label>Account Number:</label>
+            <div class="value">{{account_number}}</div>
+        </div>
+        <div class="field">
+            <label>IFSC Code:</label>
+            <div class="value">{{ifsc_code}}</div>
+        </div>
+    </div>
+
+    <div class="signature-box">
+        <p><strong>Declaration:</strong> I hereby declare that the information provided above is true and correct to the best of my knowledge.</p>
+        <br><br>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <div>Date: _________________</div>
+            </div>
+            <div>
+                <div>Signature: _________________</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>For queries: PM-KISAN Helpline 155261 / 011-24300606</p>
+        <p>Official Website: pmkisan.gov.in</p>
+        <p><em>Generated by YojanaHub - Your Government Scheme Navigator</em></p>
+    </div>
+</body>
+</html>
