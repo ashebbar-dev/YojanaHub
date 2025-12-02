@@ -12,7 +12,7 @@ import type {
 } from '@/types';
 
 // API Base URL - will be configured via env variable
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api/v1';
 
 // Create axios instance with default config
 const apiClient = axios.create({
@@ -63,7 +63,7 @@ export type {
  * Get adaptive questions for eligibility determination
  */
 export async function getQuestions(): Promise<Question[]> {
-  const response = await apiClient.get<{questions: Question[], total_questions: number}>('/questions');
+  const response = await apiClient.get<{ questions: Question[], total_questions: number }>('/questions');
   return response.data.questions;
 }
 
@@ -71,7 +71,7 @@ export async function getQuestions(): Promise<Question[]> {
  * Calculate eligible schemes based on user attributes
  */
 export async function calculateEligibility(attributes: UserAttributes): Promise<Scheme[]> {
-  const response = await apiClient.post<{eligible_schemes: Scheme[], total_count: number, summary: any}>('/eligibility', { attributes });
+  const response = await apiClient.post<{ eligible_schemes: Scheme[], total_count: number, summary: any }>('/eligibility', { attributes });
   return response.data.eligible_schemes;
 }
 
@@ -134,7 +134,7 @@ export async function getGraphData(): Promise<GraphData> {
  * Get list of demo personas
  */
 export async function getPersonas(): Promise<Persona[]> {
-  const response = await apiClient.get<{personas: Persona[]}>('/personas');
+  const response = await apiClient.get<{ personas: Persona[] }>('/personas');
   return response.data.personas;
 }
 
@@ -142,7 +142,7 @@ export async function getPersonas(): Promise<Persona[]> {
  * Get specific persona by ID with pre-filled attributes
  */
 export async function getPersonaById(personaId: string): Promise<Persona> {
-  const response = await apiClient.get<{persona: Persona}>(`/personas/${personaId}`);
+  const response = await apiClient.get<{ persona: Persona }>(`/personas/${personaId}`);
   return response.data.persona;
 }
 

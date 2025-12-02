@@ -1,16 +1,26 @@
+'use client';
+
+import { Header } from '@/components/header';
+import { HeroSection } from '@/components/hero-section';
+import { PersonaQuickStart } from '@/components/persona-quick-start';
+
 export default function Home() {
   return (
-    <div className="min-h-screen p-8">
-      <main className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">YojanaHub</h1>
-        <p className="text-lg text-gray-600">
-          Government Welfare Schemes Discovery Platform
-        </p>
-        <div className="mt-8 p-6 bg-blue-50 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-2">Phase 3: Frontend Foundation</h2>
-          <p>Next.js 14 with TypeScript and Tailwind CSS initialized successfully!</p>
-        </div>
+    <div className="min-h-screen bg-white">
+      <Header />
+      <main>
+        <HeroSection />
+        <PersonaQuickStart />
       </main>
+
+      <footer className="bg-slate-900 text-slate-400 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-4">YojanaHub - Empowering Citizens with Information</p>
+          <div className="text-sm">
+            Built for the Hackathon Demo • Phase 4 Complete
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

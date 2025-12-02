@@ -16,13 +16,20 @@ export interface UserAttributes {
 
 export interface Question {
   id: string;
-  text: string;
-  text_hi?: string; // Hindi translation
-  type: 'single_choice' | 'multiple_choice' | 'number' | 'text';
-  options?: string[];
-  options_hi?: string[]; // Hindi options
+  text: {
+    en: string;
+    hi: string;
+  };
+  input_type: 'select' | 'radio' | 'number' | 'text';
+  options?: Array<{
+    value: string;
+    label: {
+      en: string;
+      hi: string;
+    };
+  }> | null;
   attribute: string;
-  info_gain?: number;
+  priority?: number;
   help_text?: string;
 }
 
@@ -34,11 +41,14 @@ export interface Scheme {
   description_hi?: string;
   ministry: string;
   state?: string;
+  category?: string;
   benefit_type: string;
   annual_value?: number;
   confidence?: number;
   matched_conditions?: string[];
   blocking_conditions?: string[];
+  conflicts?: string[];
+  icon?: string;
 }
 
 export interface SchemeRule {
@@ -182,6 +192,8 @@ export interface GraphData {
 export interface Persona {
   id: string;
   name: string;
+  name_hindi?: string;
+  age: number;
   description: string;
   description_hi?: string;
   attributes: UserAttributes;
