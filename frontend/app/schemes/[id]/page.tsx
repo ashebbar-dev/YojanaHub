@@ -125,14 +125,18 @@ export default function SchemeDetailPage() {
                             </div>
 
                             {/* Benefit Value */}
-                            {scheme.annual_value && (
+                            {/* Benefit Value */}
+                            {scheme.benefit_value && (
                                 <div className="text-right">
                                     <div className="text-sm text-slate-500 mb-1">
-                                        {language === 'hi' ? 'वार्षिक लाभ' : 'Annual Benefit'}
+                                        {scheme.benefit_frequency === 'annual' && (language === 'hi' ? 'वार्षिक लाभ' : 'Annual Benefit')}
+                                        {scheme.benefit_frequency === 'monthly' && (language === 'hi' ? 'मासिक लाभ' : 'Monthly Benefit')}
+                                        {scheme.benefit_frequency === 'quarterly' && (language === 'hi' ? 'त्रैमासिक लाभ' : 'Quarterly Benefit')}
+                                        {scheme.benefit_frequency === 'one_time' && (language === 'hi' ? 'एकमुश्त लाभ' : 'One-time Benefit')}
                                     </div>
                                     <div className="flex items-center gap-1 text-2xl font-bold text-green-700">
                                         <IndianRupee className="w-6 h-6" />
-                                        <span>{scheme.annual_value.toLocaleString('en-IN')}</span>
+                                        <span>{scheme.benefit_value.toLocaleString('en-IN')}</span>
                                     </div>
                                 </div>
                             )}
