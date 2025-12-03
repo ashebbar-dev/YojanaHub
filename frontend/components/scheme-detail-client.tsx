@@ -31,7 +31,7 @@ function SchemeDetailContent() {
     const { language, eligibleSchemes } = useAppStore();
     const [activeTab, setActiveTab] = React.useState<TabValue>('about');
 
-    const schemeId = params.id as string;
+    const schemeId = searchParams.get('id');
 
     console.log('SchemeDetailClient mounted', { schemeId, eligibleSchemesCount: eligibleSchemes.length });
 
