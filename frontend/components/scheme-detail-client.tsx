@@ -33,8 +33,11 @@ function SchemeDetailContent() {
 
     const schemeId = params.id as string;
 
+    console.log('SchemeDetailClient mounted', { schemeId, eligibleSchemesCount: eligibleSchemes.length });
+
     // Find scheme in eligible schemes
     const scheme = eligibleSchemes.find(s => s.id === schemeId);
+    console.log('Scheme found:', scheme ? 'Yes' : 'No');
 
     // Read tab from URL
     React.useEffect(() => {

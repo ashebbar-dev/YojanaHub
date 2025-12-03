@@ -32,9 +32,11 @@ function ResultsContent() {
     const [activeTab, setActiveTab] = React.useState<TabValue>('list');
 
     // Redirect if no schemes
+    // Redirect if no schemes
     React.useEffect(() => {
         if (eligibleSchemes.length === 0) {
-            router.push('/');
+            // router.push('/'); // Commented out for debugging
+            console.log('No eligible schemes found in store');
         }
     }, [eligibleSchemes, router]);
 
