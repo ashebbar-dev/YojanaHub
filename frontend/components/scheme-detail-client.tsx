@@ -50,7 +50,7 @@ function SchemeDetailContent() {
     // Update URL when tab changes
     const handleTabChange = (value: string) => {
         setActiveTab(value as TabValue);
-        router.push(`/schemes/${schemeId}?tab=${value}`, { scroll: false });
+        router.push(`/scheme-details?id=${schemeId}&tab=${value}`, { scroll: false });
     };
 
     // Show 404 if scheme not found

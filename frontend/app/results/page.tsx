@@ -55,7 +55,7 @@ function ResultsContent() {
     };
 
     const handleSchemeClick = (scheme: Scheme) => {
-        router.push(`/schemes/${scheme.id}`);
+        router.push(`/scheme-details?id=${scheme.id}`);
     };
 
     const handleShare = async () => {
